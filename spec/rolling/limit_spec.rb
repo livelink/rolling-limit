@@ -5,7 +5,12 @@ describe Rolling::Limit do
     expect(Rolling::Limit::VERSION).not_to be nil
   end
 
-  let(:redis) { Redis.new }
+  let(:redis_config) do
+    config = {}
+    config[:host] = ENV['REDIS_HOST'] if ENV['REDIS_HOST']
+    config
+  end
+  let(:redis) { Redis.new(redis_config) }
   let(:subject) do
    described_class.new(redis: redis,
                        key: 'test-rate-limit',
