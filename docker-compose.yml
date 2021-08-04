@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    environment:
+      - REDIS_HOST=redis
+    volumes:
+      - .:/usr/local/src/rolling-limit
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6
